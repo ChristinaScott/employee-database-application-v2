@@ -6,6 +6,15 @@ from django.contrib.auth import logout
 from django.contrib import messages
 
 
+
+@login_required
+def employee_list(request):
+    # Replace this with logic to fetch employee data from your models
+    employees = []  # Placeholder for actual employee data
+    return render(request, 'employees/employee_list.html', {'employees': employees})
+
+
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -21,8 +30,8 @@ def register(request):
 
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -30,7 +39,9 @@ def user_login(request):
             return redirect('employee_list')  # Redirect to the employee list page
         else:
             messages.error(request, 'Invalid username or password.')
+            # Render the login page with the error message
     return render(request, 'employees/login.html')
+
 
 
 @login_required

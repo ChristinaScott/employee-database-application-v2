@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee List</title>
+</head>
+<body>
+    <h1>Employee List</h1>
+    
+    {% if employees %}
+        <ul>
+        {% for employee in employees %}
+            <li>{{ employee.name }} - {{ employee.position }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No employees found.</p>
+    {% endif %}
+    
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
